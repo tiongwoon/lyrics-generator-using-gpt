@@ -85,7 +85,7 @@ function App() {
       'intent/instagram-stories': imageUrl
     };
 
-    if (navigator.canShare) {
+
       try {
         await navigator
           .share(shareDetails)
@@ -93,11 +93,8 @@ function App() {
       } catch (err) {
         console.log(err)
       };
-    } else {
-      //fallback text 
-      console.log("share not supported on this browser")
-    }
 
+    
   }
 
 
