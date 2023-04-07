@@ -85,7 +85,7 @@ function App() {
       'intent/instagram-stories': imageUrl
     };
 
-    if (navigator.canShare()) {
+    if (navigator.canShare) {
       try {
         await navigator
           .share(shareDetails)
