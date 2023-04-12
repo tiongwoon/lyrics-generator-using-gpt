@@ -81,14 +81,13 @@ function App() {
     const shareDetails = {
       title: "Just gonna put this here",
       //files: [fileData!]
-      url: imageUrl,
-      'intent/instagram-stories': imageUrl
+      text: "test",
+      url: "http://coingecko.com",
+      //'intent/instagram-stories': imageUrl
     };
 
-
       try {
-        await navigator
-          .share(shareDetails)
+        await navigator.share(shareDetails)
           .then(() => console.log("Yay"))
       } catch (err) {
         console.log(err)
