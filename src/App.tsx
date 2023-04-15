@@ -2,6 +2,9 @@ import { useState } from 'react'
 import './App.css'
 import { Configuration, OpenAIApi } from 'openai'
 import html2canvas from 'html2canvas';
+import { saveAs } from 'file-saver';
+import './canvas-toBlob.js';
+
 
 
 function App() {
@@ -65,53 +68,60 @@ function App() {
 
     //Call API using function above.
     generateText(userPrompt);
-
-    
   }
 
   async function handleGenerateImage() {
     const element: HTMLElement = document.getElementById('lyrics')!;
     const canvas = await html2canvas(element);
     const imageUrl = canvas.toDataURL('image/png');
+    canvas.toBlob(function (blob) { saveAs(blob!, 'my_image.png') });
     console.log(canvas);
     setImageUrl(imageUrl);
+    //setFileData(imageUrl);
   }
 
   async function share() {
     const shareDetails = {
       title: "Just gonna put this here",
-      //files: [fileData!]
+      //files: [fileData!],
       text: "test",
       url: "http://coingecko.com",
       //'intent/instagram-stories': imageUrl
     };
 
-      try {
-        await navigator.share(shareDetails)
-          .then(() => console.log("Yay"))
-      } catch (err) {
-        console.log(err)
-      };
+    try {
+      await navigator.share(shareDetails)
+        .then(() => console.log("Yay"))
+    } catch (err) {
+      console.log(err)
+    };
 
-    
+
   }
 
 
   return (
     <div className="App">
-      <h1>Diss someone through the art of music</h1>
-      <h2>Never back down, give them the killshot</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="prompt" placeholder="Describe who you wanna diss" />
-        {result === '' ? <button type="submit">Write me a diss lyric</button> : <button type="submit">Rewrite</button>}
-      </form>
-      <div className='lyricsContainer' id="lyrics">
-        <pre>{result}</pre>
+      <div className='flex flex-col gap-y-4'>
+        <div className='flex flex-col gap-y-4'>
+          <h1 className="text-3xl font-bold underline text-center">Diss someone through the art of music</h1>
+          <h2>Never back down, give them the killshot</h2>
+        </div>
+        <div>
+          <form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
+            <textarea className="max-h-40 min-h-20 rounded-md p-6 whitespace-normal align-top break-words" name="prompt" placeholder="Describe dis bisch" />
+            {result === '' ? <button className='bg-[#7c3aed] rounded-md' type="submit">Write me a diss lyric</button> : <button className='rounded-md bg-[#7c3aed]' type="submit">Rewrite</button>}
+          </form>
+        </div>
+
+        <div className=' rounded-md bg-[#7c3aed] p-1' id="lyrics">
+          {result === '' ? '' : <pre>{result}</pre>}
+        </div>
+        {result === '' ? '' : <button className='bg-[#5b21b6] rounded-md' onClick={handleGenerateImage}>Generate image & download</button>}
       </div>
-      <button onClick={handleGenerateImage}>Generate image</button>
-      {imageUrl ? <button onClick={share}>Share this</button> : ''}
-      <p>{imageUrl}</p>
-      <img src={imageUrl}></img>
+      {/* {imageUrl ? <button onClick={share}>Share this</button> : ''} */}
+      {/* <p>{imageUrl}</p> 
+      <img src={imageUrl}></img> */}
     </div>
   )
 }
