@@ -114,9 +114,9 @@ function App() {
           </form>
         </div>
 
-        <div className=' rounded-md bg-[#7c3aed] p-1' id="lyrics">
-          {result === '' ? '' : <pre>{result}</pre>}
-        </div>
+        
+          {result === '' ? '' : <div className=' rounded-md bg-[#7c3aed] p-1' id="lyrics"><pre>{result}</pre></div>}
+        
         {result === '' ? '' : <button className='bg-[#5b21b6] rounded-md' onClick={handleGenerateImage}>Generate image & download</button>}
       </div>
       {/* {imageUrl ? <button onClick={share}>Share this</button> : ''} */}
