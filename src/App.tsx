@@ -99,13 +99,14 @@ function App() {
 
   }
 
+  const xxx:string = "to-blue-100";
 
   return (
     <div className="App">
       <div className='flex flex-col gap-y-4'>
         <div className='flex flex-col gap-y-4'>
-          <h1 className="text-3xl font-bold text-center">Diss someone through the art of music</h1>
-          <h2>Never back down, give them the killshot</h2>
+          <h1 className="text-3xl font-bold text-center">Disstrack lyrics generator</h1>
+          <h2>Describe the person you hate and let the AI generate lyrics that you can rap to the rhythm of Killshot - Eminem</h2>
         </div>
         <div>
           <form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
