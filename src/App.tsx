@@ -104,7 +104,7 @@ function App() {
     <div className="App">
       <div className='flex flex-col gap-y-4'>
         <div className='flex flex-col gap-y-4'>
-          <h1 className="text-3xl font-bold underline text-center">Diss someone through the art of music</h1>
+          <h1 className="text-3xl font-bold text-center">Diss someone through the art of music</h1>
           <h2>Never back down, give them the killshot</h2>
         </div>
         <div>
@@ -114,9 +114,9 @@ function App() {
           </form>
         </div>
 
-        
-          {result === '' ? '' : <div className=' rounded-md bg-[#7c3aed] p-1' id="lyrics"><pre>{result}</pre></div>}
-        
+
+        {result === '' ? '' : <div className='bg-transparent'><pre id="lyrics" className='from-blue-500  rounded-md bg-gradient-to-b pb-10'>{result}</pre></div>}
+
         {result === '' ? '' : <button className='bg-[#5b21b6] rounded-md' onClick={handleGenerateImage}>Generate image & download</button>}
       </div>
       {/* {imageUrl ? <button onClick={share}>Share this</button> : ''} */}
