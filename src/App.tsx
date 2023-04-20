@@ -10,6 +10,7 @@ import './canvas-toBlob.js';
 function App() {
   const [result, setResult] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
+  const [isLoading, setLoading] = useState<boolean>(false);
   //const [fileData, setFileData] = useState<File | null>(null);
   /*   const configuration = new Configuration({
       apiKey: import.meta.env.OPENAI_API_KEY,
@@ -37,6 +38,7 @@ function App() {
       .then(data => {
         {
           if (typeof data.choices[0].text === 'string') {
+            setLoading(false);
             setResult(data.choices[0].text);
             console.log(data.choices[0].text);
           }
@@ -65,14 +67,16 @@ function App() {
     const formData = new FormData(e.target);
     const userPrompt: string = String(Object.fromEntries(formData.entries()).prompt);
     console.log(userPrompt);
-
+    
+    //To display loading ui
+    setLoading(true);
     //Call API using function above.
     generateText(userPrompt);
   }
 
   async function handleGenerateImage() {
     const element: HTMLElement = document.getElementById('lyrics')!;
-    const canvas = await html2canvas(element);
+    const canvas = await html2canvas(element, { backgroundColor: null, scale:1});
     const imageUrl = canvas.toDataURL('image/png');
     canvas.toBlob(function (blob) { saveAs(blob!, 'my_image.png') });
     console.log(canvas);
@@ -95,18 +99,15 @@ function App() {
     } catch (err) {
       console.log(err)
     };
-
-
   }
 
-  const xxx: string = "to-blue-100";
 
   return (
     <div className="App">
-      <div className='py-16 max-w-lg flex flex-col gap-y-4'>
+      <div className='py-16 max-w-lg flex flex-col gap-y-8'>
         <div className='flex flex-col gap-y-4'>
-          <h1 className="text-5xl font-black text-center">Turn your rage into a hit track 🔥</h1>
-          <h2>Describe the person you hate and let the AI generate lyrics that you can rap to the rhythm of Killshot - Eminem. You can then download an image of the lyrics. <br></br> Disscribe. Where hate becomes art.</h2>
+          <h1 className="text-5xl font-black text-center">Turn your rage into a hit 🔥</h1>
+          <h2>Describe the person you hate and let the AI generate lyrics that to the rhythm of Killshot - Eminem. You can then download an image of the lyrics. <br></br><br></br> Disscribe. Where hate 😡 becomes art 🎵.</h2>
         </div>
         <div>
           <form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
@@ -114,10 +115,11 @@ function App() {
             {result === '' ? <button className='bg-[#7c3aed] rounded-md' type="submit">Write me a diss lyric</button> : <button className='rounded-md bg-[#7c3aed]' type="submit">Rewrite</button>}
           </form>
         </div>
-
-
-        {result === '' ? '' : <div className='bg-transparent'><pre id="lyrics" className='from-blue-500 to-pink-500 font-bold whitespace-pre-line px-10 rounded-md bg-gradient-to-b pb-10'>{result}</pre></div>}
-
+        {isLoading ? <div className='flex justify-center'><div
+          className='h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]'
+          role="status">
+        </div></div> : ''}
+        {result === '' ? '' : <div className='bg-transparent'><pre id="lyrics" className='text-white from-sky-800 to-gray-800 font-bold whitespace-pre-line px-10 rounded-md bg-gradient-to-b pb-10'>{result}</pre></div>}
         {result === '' ? '' : <button className='bg-[#5b21b6] rounded-md' onClick={handleGenerateImage}>Generate image & download</button>}
       </div>
       {/* {imageUrl ? <button onClick={share}>Share this</button> : ''} */}
