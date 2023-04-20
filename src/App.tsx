@@ -99,14 +99,14 @@ function App() {
 
   }
 
-  const xxx:string = "to-blue-100";
+  const xxx: string = "to-blue-100";
 
   return (
     <div className="App">
-      <div className='flex flex-col gap-y-4'>
+      <div className='py-16 max-w-lg flex flex-col gap-y-4'>
         <div className='flex flex-col gap-y-4'>
-          <h1 className="text-3xl font-bold text-center">Disstrack lyrics generator</h1>
-          <h2>Describe the person you hate and let the AI generate lyrics that you can rap to the rhythm of Killshot - Eminem</h2>
+          <h1 className="text-5xl font-black text-center">Turn your rage into a hit track 🔥</h1>
+          <h2>Describe the person you hate and let the AI generate lyrics that you can rap to the rhythm of Killshot - Eminem. You can then download an image of the lyrics. <br></br> Disscribe. Where hate becomes art.</h2>
         </div>
         <div>
           <form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
@@ -116,7 +116,7 @@ function App() {
         </div>
 
 
-        {result === '' ? '' : <div className='bg-transparent'><pre id="lyrics" className='from-blue-500  rounded-md bg-gradient-to-b pb-10'>{result}</pre></div>}
+        {result === '' ? '' : <div className='bg-transparent'><pre id="lyrics" className='from-blue-500 to-pink-500 font-bold whitespace-pre-line px-10 rounded-md bg-gradient-to-b pb-10'>{result}</pre></div>}
 
         {result === '' ? '' : <button className='bg-[#5b21b6] rounded-md' onClick={handleGenerateImage}>Generate image & download</button>}
       </div>
