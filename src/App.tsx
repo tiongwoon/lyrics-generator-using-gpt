@@ -20,29 +20,30 @@ function App() {
     const refinedPrompt = 'Get the lyrics of Killshot by Eminem. Write a diss track for' + prompt + '. The lyrics should match up with the syllabus of each line of the song Killshot by Eminem'
 
     try {
-    const requestOptions2 = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'},
-      body: JSON.stringify({ prompt: refinedPrompt })
-    }
+      const requestOptions2 = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ prompt: refinedPrompt })
+      }
 
 
       const res = await fetch("https://lyrics-generator-api.vercel.app/write-lyrics", requestOptions2);
       const { success, message } = await res.json();
       if (success == true) {
-      setResult(message)
-    }
+        setResult(message)
+      }
 
-  } catch (err) {
-    console.log(err);
-    let message;
-    if (err instanceof Error) message = err.message
-    else message = String(err)
-    setResult(message)
-  } finally {
-    setLoading(false)
-  }
+    } catch (err) {
+      console.log(err);
+      let message;
+      if (err instanceof Error) message = err.message;
+      else message = String(err)
+      setResult(message)
+    } finally {
+      setLoading(false)
+    }
 
     // fetch('https://api.openai.com/v1/completions', requestOptions)
     //   .then(response => response.json())
