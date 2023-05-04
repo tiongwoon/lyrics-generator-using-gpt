@@ -35,8 +35,11 @@ function App() {
     }
 
   } catch (err) {
-    console.log(err)
-    setResult(err)
+    console.log(err);
+    let message;
+    if (err instanceof Error) message = err.message
+    else message = String(err)
+    setResult(message)
   } finally {
     setLoading(false)
   }
