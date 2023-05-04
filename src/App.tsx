@@ -12,28 +12,11 @@ function App() {
   inject();
 
   const [result, setResult] = useState<string>('');
-  const [imageUrl, setImageUrl] = useState<string>('');
   const [isLoading, setLoading] = useState<boolean>(false);
-  /*   const configuration = new Configuration({
-      apiKey: import.meta.env.OPENAI_API_KEY,
-    });
-  
-    const openai = new OpenAIApi(configuration); */
+
 
   async function generateText(prompt: string) {
-    // const requestOptions = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': 'Bearer ' + ' ' + String(import.meta.env.VITE_OPENAI_API_KEY) //String(import.meta.env.OPENAI_API_KEY)
-    //   },
-    //   body: JSON.stringify({
-    //     model: "text-davinci-003",
-    //     prompt: 'Write a diss track for' + prompt + 'to the melody of the song Killshot by Eminem',
-    //     temperature: 0.9,
-    //     max_tokens: 100,
-    //   })
-    // };
+
     const refinedPrompt = 'Get the lyrics of Killshot by Eminem. Write a diss track for' + prompt + '. The lyrics should match up with the syllabus of each line of the song Killshot by Eminem'
 
     try {
@@ -44,16 +27,6 @@ function App() {
       body: JSON.stringify({ prompt: refinedPrompt })
     }
 
-    // fetch ("http://localhost:5000/write-lyrics", requestOptions2)
-    //   .then(response => {
-
-    //     setLoading(false);
-    //     setResult(response.message);
-    //     // console.log(data.choices[0].text);
-    //   }).catch(err => {
-    //     console.log(err);
-    //     setResult(String(err));
-    //   });
 
       const res = await fetch("https://lyrics-generator-api.vercel.app/write-lyrics", requestOptions2);
       const { success, message } = await res.json();
@@ -63,6 +36,7 @@ function App() {
 
   } catch (err) {
     console.log(err)
+    setResult(err)
   } finally {
     setLoading(false)
   }
@@ -111,10 +85,8 @@ function App() {
   async function handleGenerateImage() {
     const element: HTMLElement = document.getElementById('lyrics')!;
     const canvas = await html2canvas(element, { backgroundColor: null, scale: 1 });
-    const imageUrl = canvas.toDataURL('image/png');
     canvas.toBlob(function (blob) { saveAs(blob!, 'my_image.png') });
     console.log(canvas);
-    setImageUrl(imageUrl);
   }
 
 
@@ -138,9 +110,6 @@ function App() {
         {result === '' ? '' : <div className='bg-transparent'><pre id="lyrics" className='text-white from-sky-800 to-gray-800 font-bold whitespace-pre-line px-10 rounded-md bg-gradient-to-b pb-10'>{result}</pre></div>}
         {result === '' ? '' : <button className='bg-[#5b21b6] rounded-md' onClick={handleGenerateImage}>Generate image & download</button>}
       </div>
-      {/* {imageUrl ? <button onClick={share}>Share this</button> : ''} */}
-      {/* <p>{imageUrl}</p> 
-      <img src={imageUrl}></img> */}
     </div>
   )
 }
