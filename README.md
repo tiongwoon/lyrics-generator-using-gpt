@@ -1,5 +1,6 @@
 # A Lyrics generator web app using GPT 
 A simple website that allows you to generate lyrics (rap only) based on a description which you input.
+Demo: https://ai-lyrics-generator.vercel.app/
 
 ## Built using
 - React for frontend
