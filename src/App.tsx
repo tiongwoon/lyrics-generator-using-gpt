@@ -55,7 +55,7 @@ function App() {
     //     setResult(String(err));
     //   });
 
-      const res = await fetch("http://localhost:4000/write-lyrics", requestOptions2);
+      const res = await fetch("https://lyrics-generator-api.vercel.app/write-lyrics", requestOptions2);
       const { success, message } = await res.json();
       if (success == true) {
       setResult(message)
