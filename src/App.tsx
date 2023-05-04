@@ -18,6 +18,7 @@ function App() {
   async function generateText(prompt: string) {
 
     const refinedPrompt = 'Get the lyrics of Killshot by Eminem. Write a diss track for' + prompt + '. The lyrics should match up with the syllabus of each line of the song Killshot by Eminem'
+    const baseURL = import.meta.env.VITE_BASE_URL; 
 
     try {
       const requestOptions2 = {
@@ -29,7 +30,7 @@ function App() {
       }
 
 
-      const res = await fetch("https://lyrics-generator-api.vercel.app/write-lyrics", requestOptions2);
+      const res = await fetch(baseURL, requestOptions2);
       const { success, message } = await res.json();
       if (success == true) {
         setResult(message)
